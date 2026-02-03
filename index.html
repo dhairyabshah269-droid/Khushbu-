@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Dodhdayi 💕 - From Dhairya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ff69b4 0%, #ffb6c1 30%, #ffc0cb 60%, #ffe4e1 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s, visibility 1s;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-heart {
+            font-size: 100px;
+            animation: loadingPulse 0.8s ease-in-out infinite;
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            animation: fadeInOut 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 25px rgba(255, 105, 180, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .music-info {
+            font-size: 0.85rem;
+            color: #ff1493;
+        }
+
+        .music-info strong {
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating Hearts Background */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 25px;
+            animation: floatUp linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Header Section */
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .crown {
+            font-size: 3.5rem;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .queen-text {
+            color: #ff1493;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+        }
+
+        /* Photo Frame */
+        .photo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .photo-frame {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            box-shadow: 0 15px 50px rgba(255, 20, 147, 0.4);
+            overflow: hidden;
+            animation: glow 2s ease-in-out infinite;
+            position: relative;
+            background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 15px 50px rgba(255, 20, 147, 0.4);
+            }
+            50% {
+                box-shadow: 0 20px 60px rgba(255, 20, 147, 0.7), 0 0 40px rgba(255, 105, 180, 0.5);
+            }
+        }
+
+        .rotating-hearts {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            margin-top: -150px;
+            margin-left: -150px;
+            animation: rotate 8s linear infinite;
+            pointer-events: none;
+        }
+
+        .rotating-hearts span {
+            position: absolute;
+            font-size: 1.8rem;
+        }
+
+        .rotating-hearts span:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+        .rotating-hearts span:nth-child(2) { top: 50%; right: 0; transform: translateY(-50%); }
+        .rotating-hearts span:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .rotating-hearts span:nth-child(4) { top: 50%; left: 0; transform: translateY(-50%); }
+        .rotating-hearts span:nth-child(5) { top: 15%; right: 15%; }
+        .rotating-hearts span:nth-child(6) { bottom: 15%; right: 15%; }
+        .rotating-hearts span:nth-child(7) { bottom: 15%; left: 15%; }
+        .rotating-hearts span:nth-child(8) { top: 15%; left: 15%; }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Title */
+        h1 {
+            font-size: 2.8rem;
+            color: #ff1493;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(255,255,255,0.5);
+        }
+
+        .pet-name {
+            font-size: 2.4rem;
+            color: #ff69b4;
+            font-style: italic;
+            margin-bottom: 20px;
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 20, 147, 0.3); }
+            50% { text-shadow: 0 0 25px rgba(255, 20, 147, 0.6), 0 0 35px rgba(255, 105, 180, 0.4); }
+        }
+
+        /* All Cards/Boxes Pink Theme */
+        .card-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(255, 20, 147, 0.2);
+            margin-bottom: 30px;
+            border: 3px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .card-box h2, .card-box h3 {
+            color: #ff1493;
+            margin-bottom: 20px;
+        }
+
+        /* Flirty Messages Carousel */
+        .flirty-box {
+            background: linear-gradient(135deg, #fff 0%, #ffe4e1 100%);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(255, 20, 147, 0.25);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .flirty-box::before {
+            content: "💋";
+            position: absolute;
+            top: 12px;
+            left: 18px;
+            font-size: 1.6rem;
+        }
+
+        .flirty-box::after {
+            content: "💋";
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 1.6rem;
+        }
+
+        .flirty-message {
+            font-size: 1.3rem;
+            color: #ff1493;
+            font-style: italic;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            transition: opacity 0.3s;
+        }
+
+        .flirty-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .flirty-dot {
+            width: 12px;
+            height: 12px;
+            background: #ffb6c1;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .flirty-dot.active {
+            background: #ff1493;
+            transform: scale(1.3);
+        }
+
+        /* Love Meter */
+        .meter-container {
+            background: #ffe4e1;
+            border-radius: 50px;
+            height: 35px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            background: linear-gradient(90deg, #ff69b4, #ff1493, #ff69b4);
+            background-size: 200% 100%;
+            height: 100%;
+            width: 0%;
+            border-radius: 50px;
+            animation: meterFill 2.5s ease-out forwards, shimmer 2s linear infinite;
+            animation-delay: 1s, 3.5s;
+        }
+
+        @keyframes meterFill {
+            to { width: 100%; }
+        }
+
+        @keyframes shimmer {
+            from { background-position: 200% 0; }
+            to { background-position: -200% 0; }
+        }
+
+        .meter-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+            animation-delay: 3s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Countdown Timer */
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            padding: 18px 12px;
+            border-radius: 18px;
+            min-width: 80px;
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.35);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+
+        .time-box small {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        /* Hugs & Kisses */
+        .hug-kiss-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .hk-btn {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            border: none;
+            font-size: 2.8rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hk-btn.hug {
+            background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5);
+        }
+
+        .hk-btn.kiss {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        .hk-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .hk-btn:active {
+            transform: scale(0.95);
+        }
+
+        .hk-counter {
+            font-size: 1.2rem;
+            color: #ff1493;
+        }
+
+        .hk-counter span {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* Love Letter */
+        .love-letter {
+            position: relative;
+            padding-top: 45px;
+        }
+
+        .love-letter::before {
+            content: "💌";
+            font-size: 2.5rem;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .love-letter p {
+            font-size: 1.15rem;
+            color: #555;
+            line-height: 1.9;
+            margin-bottom: 18px;
+        }
+
+        .signature {
+            font-size: 1.5rem;
+            color: #ff1493;
+            font-style: italic;
+            margin-top: 25px;
+        }
+
+        /* Compliments */
+        .compliment-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .compliment-card {
+            background: linear-gradient(135deg, #ffe4e1, #fff);
+            padding: 22px 15px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            color: #666;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: default;
+            border: 2px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .compliment-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(255, 20, 147, 0.25);
+        }
+
+        .compliment-card span {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Reasons */
+        .reasons ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .reasons li {
+            font-size: 1.05rem;
+            color: #555;
+            padding: 14px 0;
+            border-bottom: 2px dashed #ffb6c1;
+            padding-left: 40px;
+            position: relative;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .reasons li:hover {
+            transform: translateX(12px);
+            color: #ff1493;
+        }
+
+        .reasons li:last-child {
+            border-bottom: none;
+        }
+
+        .reasons li::before {
+            content: "💗";
+            position: absolute;
+            left: 0;
+            font-size: 1.3rem;
+        }
+
+        /* Promises */
+        .promises {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 12px 45px rgba(255, 20, 147, 0.4);
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .promises h2 {
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .promise-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .promise-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 18px 22px;
+            border-radius: 15px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .promise-item span {
+            font-size: 1.6rem;
+        }
+
+        /* Secret Message */
+        .secret-envelope {
+            width: 130px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            margin: 0 auto 20px;
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 8px 30px rgba(255, 20, 147, 0.4);
+        }
+
+        .secret-envelope:hover {
+            transform: scale(1.1) rotate(-3deg);
+        }
+
+        .secret-envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 65px solid transparent;
+            border-right: 65px solid transparent;
+            border-top: 55px solid #ff85c1;
+        }
+
+        .secret-envelope::after {
+            content: "💋";
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+        }
+
+        .secret-message {
+            display: none;
+            background: linear-gradient(135deg, #ffe4e1, #fff);
+            padding: 25px;
+            border-radius: 18px;
+            font-size: 1.15rem;
+            color: #ff1493;
+            font-style: italic;
+            margin-top: 15px;
+            animation: slideIn 0.5s ease;
+            border: 2px solid rgba(255, 105, 180, 0.3);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Quiz */
+        .quiz-question {
+            font-size: 1.25rem;
+            color: #ff1493;
+            margin-bottom: 22px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            background: linear-gradient(135deg, #ffe4e1, #fff);
+            padding: 16px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.05rem;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: #ffb6c1;
+            transform: translateX(8px);
+        }
+
+        .quiz-option.correct {
+            background: linear-gradient(135deg, #90EE90, #98FB98);
+            border-color: #32CD32;
+        }
+
+        .quiz-result {
+            display: none;
+            margin-top: 22px;
+            padding: 22px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border-radius: 18px;
+            color: white;
+            font-size: 1.15rem;
+        }
+
+        /* Magic Buttons */
+        .magic-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .magic-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+            background-size: 200% 100%;
+            color: white;
+            padding: 20px 45px;
+            font-size: 1.25rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 35px rgba(255, 20, 147, 0.45);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: gradientMove 3s linear infinite;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .magic-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 45px rgba(255, 20, 147, 0.55);
+        }
+
+        .magic-btn.secondary {
+            background: linear-gradient(45deg, #da70d6, #ff69b4, #da70d6);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 35px;
+            color: #ff1493;
+            font-size: 1.1rem;
+        }
+
+        footer .big-heart {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 18px;
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.15); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.15); }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 45px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 420px;
+            margin: 20px;
+            animation: popIn 0.5s ease;
+            border: 4px solid #ff69b4;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-content h2 {
+            color: #ff1493;
+            margin-bottom: 18px;
+            font-size: 1.6rem;
+        }
+
+        .modal-content p {
+            color: #555;
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .modal-content .close-btn {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .modal-content .close-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 550px) {
+            h1 { font-size: 2.2rem; }
+            .pet-name { font-size: 1.8rem; }
+            .compliment-cards { grid-template-columns: 1fr; }
+            .countdown-timer { gap: 8px; }
+            .time-box { min-width: 70px; padding: 15px 10px; }
+            .time-box span { font-size: 1.8rem; }
+            .music-player {
+                top: 10px;
+                right: 10px;
+                padding: 10px 15px;
+            }
+            .music-info { display: none; }
+            .container { padding-top: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-heart">💗</div>
+        <p class="loading-text">Loading my love for you, Khushbu...</p>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶️</button>
+        <div class="music-info">
+            <strong>Bargad</strong>
+            <small>Sufi, Arpit Bala & Toorjo Dey</small>
+        </div>
+    </div>
+
+    <!-- Audio Element - Using Spotify/YouTube embed would require their URLs -->
+    <audio id="bgMusic" loop>
+        <!-- Add your audio source here -->
+        <source src="bargad.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Hearts Background -->
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="crown">👑</div>
+            <p class="queen-text">For My Queen, My Everything</p>
+        </div>
+
+        <!-- Photo with Rotating Hearts -->
+        <div class="photo-container">
+            <div class="rotating-hearts">
+                <span>💗</span>
+                <span>💕</span>
+                <span>💖</span>
+                <span>💝</span>
+                <span>💘</span>
+                <span>💓</span>
+                <span>💞</span>
+                <span>❤️</span>
+            </div>
+            <div class="photo-frame">
+                <img src="https://via.placeholder.com/220/ffb6c1/ff1493?text=Khushbu+💗" alt="My Beautiful Khushbu">
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h1>Happy Valentine's Day</h1>
+        <p class="pet-name">My Dodhdayi 💗</p>
+
+        <!-- Flirty Messages Carousel -->
+        <div class="flirty-box">
+            <div class="flirty-message" id="flirtyMessage">
+                "Are you a magician? Because whenever I look at you, everyone else disappears 💫"
+            </div>
+            <div class="flirty-nav" id="flirtyNav"></div>
+        </div>
+
+        <!-- Love Meter -->
+        <div class="card-box">
+            <h3>💗 How Much I Love You 💗</h3>
+            <div class="meter-container">
+                <div class="meter-fill"></div>
+                <div class="meter-text">∞ INFINITY & BEYOND! ∞</div>
+            </div>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="card-box">
+            <h3>⏰ Loving You Since September 2025 ⏰</h3>
+            <div class="countdown-timer">
+                <div class="time-box">
+                    <span id="days">000</span>
+                    <small>Days</small>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <small>Hours</small>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <small>Minutes</small>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <small>Seconds</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hugs & Kisses Counter -->
+        <div class="card-box">
+            <h3>Send Me Virtual Love, Khushbu! 💕</h3>
+            <div class="hug-kiss-buttons">
+                <button class="hk-btn hug" onclick="addHug()">🤗</button>
+                <button class="hk-btn kiss" onclick="addKiss()">💋</button>
+            </div>
+            <p class="hk-counter">
+                Hugs: <span id="hugCount">0</span> 🤗 | Kisses: <span id="kissCount">0</span> 💋
+            </p>
+        </div>
+
+        <!-- Love Letter -->
+        <div class="card-box love-letter">
+            <p>
+                Hey Dodhdayi 💗
+            </p>
+            <p>
+                Every time I see your smile, my heart skips a beat. Every time I hear your laugh, 
+                I fall in love with you all over again. You're not just my girlfriend, you're my best friend, 
+                my confidant, and the person I want to spend every moment with.
+            </p>
+            <p>
+                You make my bad days better and my good days perfect. I still can't believe how lucky I am 
+                to have someone as amazing, beautiful, and caring as you in my life. 🌹
+            </p>
+            <p>
+                Thank you for loving me, for choosing me, and for being YOU. I promise to always cherish you, 
+                make you laugh, and love you more with each passing day.
+            </p>
+            <p class="signature">
+                Forever & Always Yours,<br>
+                Dhairya 💗
+            </p>
+        </div>
+
+        <!-- Compliments -->
+        <div class="card-box">
+            <h2>✨ Things I Adore About You, Khushbu ✨</h2>
+            <div class="compliment-cards">
+                <div class="compliment-card">
+                    <span>😍</span>
+                    Your gorgeous eyes that I get lost in
+                </div>
+                <div class="compliment-card">
+                    <span>💫</span>
+                    Your smile that lights up my world
+                </div>
+                <div class="compliment-card">
+                    <span>🦋</span>
+                    The butterflies you give me
+                </div>
+                <div class="compliment-card">
+                    <span>💗</span>
+                    Your kind and loving heart
+                </div>
+                <div class="compliment-card">
+                    <span>😂</span>
+                    How you laugh at my silly jokes
+                </div>
+                <div class="compliment-card">
+                    <span>🔥</span>
+                    How incredibly beautiful you are
+                </div>
+                <div class="compliment-card">
+                    <span>🥰</span>
+                    Your cute little habits
+                </div>
+                <div class="compliment-card">
+                    <span>👑</span>
+                    Everything about you, my Dodhdayi
+                </div>
+            </div>
+        </div>
+
+        <!-- Reasons I Love You -->
+        <div class="card-box reasons">
+            <h2>💗 100 Reasons Would Never Be Enough 💗</h2>
+            <ul>
+                <li>The way you look at me makes me weak</li>
+                <li>Your hugs feel like home</li>
+                <li>You're my favorite notification</li>
+                <li>I love how you care for me</li>
+                <li>Your voice is my favorite sound</li>
+                <li>You make ordinary moments magical</li>
+                <li>I can be myself around you</li>
+                <li>You're my 11:11 wish come true</li>
+                <li>Your kisses are addictive</li>
+                <li>Simply because you're my everything, Khushbu ✨</li>
+            </ul>
+        </div>
+
+        <!-- My Promises -->
+        <div class="promises">
+            <h2>💍 My Promises To You, Khushbu 💍</h2>
+            <div class="promise-list">
+                <div class="promise-item">
+                    <span>🤗</span>
+                    To always be there when you need me
+                </div>
+                <div class="promise-item">
+                    <span>😂</span>
+                    To make you laugh every single day
+                </div>
+                <div class="promise-item">
+                    <span>🌹</span>
+                    To never stop making you feel special
+                </div>
+                <div class="promise-item">
+                    <span>💪</span>
+                    To support your dreams always
+                </div>
+                <div class="promise-item">
+                    <span>💗</span>
+                    To love you more each day
+                </div>
+            </div>
+        </div>
+
+        <!-- Secret Message -->
+        <div class="card-box">
+            <h2>🔐 A Secret Just For You 🔐</h2>
+            <p style="color: #ff69b4; margin-bottom: 20px;">Tap the envelope to reveal, Dodhdayi...</p>
+            <div class="secret-envelope" onclick="revealSecret()"></div>
+            <div class="secret-message" id="secretMessage">
+                "I think about you literally ALL the time, Khushbu... You're always on my mind, 
+                in my heart, and you're the reason I smile like an idiot looking at my phone. 
+                I'm so obsessed with you it's crazy! You're my favorite person in this entire world! 🥰💗"
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div class="card-box">
+            <h2>💕 Quick Quiz 💕</h2>
+            <p class="quiz-question">Who's the most beautiful girl in the world?</p>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="checkAnswer(this, false)">A. Some celebrity</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">B. A supermodel</div>
+                <div class="quiz-option" onclick="checkAnswer(this, true)">C. KHUSHBU! 💗</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">D. Anyone else</div>
+            </div>
+            <div class="quiz-result" id="quizResult">
+                🎉 CORRECT! You're the most beautiful girl in the entire universe, Khushbu! 
+                And I, Dhairya, am the luckiest person alive to call you mine! 💗
+            </div>
+        </div>
+
+        <!-- Magic Buttons -->
+        <div class="magic-buttons">
+            <button class="magic-btn" onclick="showSurprise()">
+                💗 Click For A Sweet Surprise 💗
+            </button>
+            <button class="magic-btn secondary" onclick="showFlirty()">
+                💋 One More Flirty Message 💋
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <span class="big-heart">💗</span>
+            <p>Made with all my love 💕</p>
+            <p>Just for you, my beautiful Dodhdayi</p>
+            <p style="margin-top: 15px;">~ Forever Yours, Dhairya ~</p>
+        </footer>
+
+    </div>
+
+    <!-- Surprise Modal -->
+    <div class="modal" id="surpriseModal">
+        <div class="modal-content">
+            <h2>💗 Hey Khushbu! 💗</h2>
+            <p id="modalMessage"></p>
+            <button class="close-btn" onclick="closeModal()">I Love You Too, Dhairya! 💕</button>
+        </div>
+    </div>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 3000);
+        });
+
+        // Music Toggle
+        let isPlaying = false;
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicBtn.textContent = '▶️';
+            } else {
+                music.play();
+                musicBtn.textContent = '⏸️';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Floating Hearts
+        function createFloatingHeart() {
+            const container = document.getElementById('heartsBg');
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = ['❤️', '💕', '💗', '💖', '💝', '💘', '🌹', '✨', '💓', '💞'][Math.floor(Math.random() * 10)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 5 + 8 + 's';
+            heart.style.fontSize = Math.random() * 18 + 18 + 'px';
+            container.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 13000);
+        }
+        setInterval(createFloatingHeart, 350);
+
+        // Sparkles
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            sparkle.style.background = ['white', '#ffb6c1', '#ff69b4'][Math.floor(Math.random() * 3)];
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => sparkle.remove(), 3000);
+        }
+        setInterval(createSparkle, 400);
+
+        // Flirty Messages
+        const flirtyMessages = [
+            "\"Are you a magician? Because whenever I look at you, everyone else disappears 💫\"",
+            "\"I must be a snowflake, because I've fallen for you, Khushbu ❄️💗\"",
+            "\"If beauty were time, you'd be an eternity, my Dodhdayi ⏰✨\"",
+            "\"Do you have a map? I just got lost in your eyes 🗺️😍\"",
+            "\"Khushbu, you're so hot, you make the sun jealous ☀️🔥\"",
+            "\"I'm not a photographer, but I can picture us together forever 📸💗\"",
+            "\"You must be tired because you've been running through my mind all day 🏃‍♀️💭\"",
+            "\"If kisses were snowflakes, I'd send you a blizzard, Dodhdayi 💋❄️\"",
+            "\"I didn't believe in love at first sight until I saw you 👀💘\"",
+            "\"You're the reason I look down at my phone and smile like crazy 📱😊\"",
+            "\"Khushbu, my heart beats only for you 💗\"",
+            "\"Every love song makes me think of you, my Dodhdayi 🎵💕\"",
+        ];
+
+        let currentFlirty = 0;
+        const flirtyNav = document.getElementById('flirtyNav');
+        const flirtyMessage = document.getElementById('flirtyMessage');
+
+        flirtyMessages.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'flirty-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => showFlirtyMessage(i);
+            flirtyNav.appendChild(dot);
+        });
+
+        function showFlirtyMessage(index) {
+            currentFlirty = index;
+            flirtyMessage.style.opacity = 0;
+            setTimeout(() => {
+                flirtyMessage.textContent = flirtyMessages[index];
+                flirtyMessage.style.opacity = 1;
+            }, 300);
+            
+            document.querySelectorAll('.flirty-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        setInterval(() => {
+            currentFlirty = (currentFlirty + 1) % flirtyMessages.length;
+            showFlirtyMessage(currentFlirty);
+        }, 5000);
+
+        // Countdown Timer - September 2025
+        const startDate = new Date('2025-09-01');
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = Math.abs(now - startDate);
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(3, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Hugs & Kisses
+        let hugs = 0, kisses = 0;
+
+        function addHug() {
+            hugs++;
+            document.getElementById('hugCount').textContent = hugs;
+            createEmoji('🤗');
+            if (hugs % 5 === 0) {
+                showQuickMessage("Dhairya felt that hug! 🤗💗");
+            }
+        }
+
+        function addKiss() {
+            kisses++;
+            document.getElementById('kissCount').textContent = kisses;
+            createEmoji('💋');
+            if (kisses % 5 === 0) {
+                showQuickMessage("Dhairya is blushing! 💋😊");
+            }
+        }
+
+        function createEmoji(emoji) {
+            const el = document.createElement('div');
+            el.textContent = emoji;
+            el.style.cssText = `
+                position: fixed;
+                font-size: 2.5rem;
+                pointer-events: none;
+                left: ${Math.random() * 80 + 10}vw;
+                top: 50%;
+                animation: floatUp 2s ease-out forwards;
+                z-index: 1000;
+            `;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 2000);
+        }
+
+        function showQuickMessage(msg) {
+            const el = document.createElement('div');
+            el.textContent = msg;
+            el.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                color: #ff1493;
+                padding: 20px 30px;
+                border-radius: 20px;
+                font-size: 1.2rem;
+                z-index: 10000;
+                box-shadow: 0 10px 40px rgba(255, 20, 147, 0.4);
+                animation: popIn 0.5s ease;
+            `;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 2000);
+        }
+
+        // Secret Message
+        function revealSecret() {
+            const msg = document.getElementById('secretMessage');
+            msg.style.display = msg.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Quiz
+        function checkAnswer(el, correct) {
+            if (correct) {
+                el.classList.add('correct');
+                document.getElementById('quizResult').style.display = 'block';
+            } else {
+                el.style.background = '#ffcccb';
+                setTimeout(() => el.style.background = '', 500);
+            }
+        }
+
+        // Surprise Messages
+        const surpriseMessages = [
+            "I fall in love with you more every single day, Khushbu! You're my everything! 💗",
+            "You're not just beautiful on the outside, Dodhdayi, your soul is gorgeous too! 🌟",
+            "I can't stop thinking about you, Khushbu... you're literally always on my mind! 🥰",
+            "You make me the happiest person alive! Thank you for being mine, my Dodhdayi! 💗",
+            "I'm so lucky the universe brought you to me. You're my greatest gift, Khushbu! 🎁",
+            "Every love song makes sense now because of you, my beautiful Dodhdayi! 🎵💗",
+            "You're my today, my tomorrow, and my forever, Khushbu! 💍",
+            "I love you to the moon and back, Dodhdayi... and then infinity more! 🌙✨",
+            "Khushbu, you stole my heart and I never want it back! 💗",
+            "You're the best thing that ever happened to me - Love, Dhairya 💕",
+        ];
+
+        function showSurprise() {
+            const msg = surpriseMessages[Math.floor(Math.random() * surpriseMessages.length)];
+            document.getElementById('modalMessage').textContent = msg;
+            document.getElementById('surpriseModal').style.display = 'flex';
+        }
+
+        function showFlirty() {
+            const msg = flirtyMessages[Math.floor(Math.random() * flirtyMessages.length)];
+            document.getElementById('modalMessage').textContent = msg.replace(/"/g, '');
+            document.getElementById('surpriseModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('surpriseModal').style.display = 'none';
+        }
+
+        document.getElementById('surpriseModal').onclick = (e) => {
+            if (e.target.id === 'surpriseModal') closeModal();
+        };
+    </script>
+
+</body>
+</html>
